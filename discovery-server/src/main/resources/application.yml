@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: discovery-server
+server:
+  port: 8081
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+  sever:
+    wait-time-in-ms-when-sync-empty: 0
