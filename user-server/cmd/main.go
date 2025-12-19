@@ -45,7 +45,7 @@ func registerWithEureka() {
 				log.Print("Info: Eureka heartbeat success")
 			}
 
-			time.Sleep(time.Second * time.Duration(instance.LeaseInfo.RenewalIntervalInSecs))
+			time.Sleep(time.Second * 5)
 
 		}
 
