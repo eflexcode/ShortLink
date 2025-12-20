@@ -11,6 +11,7 @@ import (
 )
 
 func main(){
+	
 	log.Print("Auth server started")
 
 	r := chi.NewRouter()
