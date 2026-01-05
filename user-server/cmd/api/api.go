@@ -31,7 +31,7 @@ func Init() {
 		panic(err)
 	}
 
-	log.Print("Database conncetion established")
+	log.Print("User-Server database conncetion established")
 
 	databseRepo := db.NewDatabaseRepo(database)
 
@@ -39,11 +39,13 @@ func Init() {
 		db: databseRepo,
 	}
 
+	
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
 	r.Get("/check-user-exist", apiService.CheckUserExist)
+	r.Get("/register", apiService.Register)
 
 	http.ListenAndServe(":8082", r)
 
