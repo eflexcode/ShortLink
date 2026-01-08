@@ -1,7 +1,10 @@
 package api
 
 import (
+	"database/sql"
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
 )
 
 type CheckUserPayload struct {
@@ -44,18 +47,41 @@ func (api *ApiService) Register(w http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
 
-	err := api.db.Insert(ctx,registerUserPayload.Display,registerUserPayload.Username,registerUserPayload.Password)
+	err := api.db.Insert(ctx, registerUserPayload.Display, registerUserPayload.Username, registerUserPayload.Password)
 
 	if err != nil {
-		InsernalServalError(w,"failed to register user")
+		InsernalServalError(w, "failed to register user")
 		return
 	}
 
 	standardResponse := StandardResponse{
-		status: http.StatusOK,
+		status:  http.StatusOK,
 		message: "user registered succesfully",
 	}
 
-	WriteJson(w,standardResponse,http.StatusOK)
+	WriteJson(w, standardResponse, http.StatusOK)
+
+}
+
+func (api *ApiService) GetUser(w http.ResponseWriter, r *http.Request) {
+
+	id := chi.URLParam(r, "id")
+
+	ctx := r.Context()
+
+	user, err := api.db.GetUser(ctx, id, "id")
+
+	if err != nil {
+
+		if err == sql.ErrNoRows {
+			NotFound(w, "no user found with id: "+id)
+			return
+		}
+
+		InsernalServalError(w, "failed to register user")
+		return
+	}
+
+	WriteJson(w,user,http.StatusOK)
 
 }

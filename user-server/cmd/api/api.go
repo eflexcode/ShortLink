@@ -39,13 +39,25 @@ func Init() {
 		db: databseRepo,
 	}
 
-	
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
+	r.Get("/status",func(w http.ResponseWriter, r *http.Request) {
 
-	r.Get("/check-user-exist", apiService.CheckUserExist)
-	r.Get("/register", apiService.Register)
+		s := StandardResponse{
+			status: http.StatusOK,
+			message: "UP",
+		}
+
+		WriteJson(w,s,http.StatusOK)
+
+	})
+
+	r.Route("/v1", func(r chi.Router) {
+		r.Get("/check-user-exist", apiService.CheckUserExist)
+		r.Post("/register", apiService.Register)
+		r.Get("/{id}",apiService.GetUser)
+	})
 
 	http.ListenAndServe(":8082", r)
 

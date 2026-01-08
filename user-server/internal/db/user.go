@@ -2,18 +2,19 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
-	id        string
-	name      string
-	username  string
-	password  string
-	createdAt time.Time
-	updatedAt time.Time
+	Id        string    `json:"id"`
+	Name      string    `json:"name"`
+	Username  string    `json:"username"`
+	Password  string    `json:"_"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 func (database *DatabaseRepo) Insert(ctx context.Context, name, username, password string) error {
@@ -42,3 +43,32 @@ func (database *DatabaseRepo) CheckuserExist(ctx context.Context, username strin
 
 	return result
 }
+
+func (database *DatabaseRepo) GetUser(ctx context.Context, filled,filledName string) (*User, error) {
+
+	query := fmt.Sprintf("SELECT * FROM USERS WHERE %s = $1",filledName)
+
+	// query := `SELECT * FROM USERS WHERE id = $1`
+
+	row, err := database.db.QueryContext(ctx, query, filled)
+
+	if err != nil {
+		return nil, err
+	}
+
+	row.Next()
+
+	var user User
+
+	err = row.Scan(&user.Id, &user.Name, &user.Username, &user.CreatedAt, &user.UpdatedAt)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &user,nil
+
+}
+
+
+
