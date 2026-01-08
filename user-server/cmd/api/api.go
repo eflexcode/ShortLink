@@ -42,21 +42,30 @@ func Init() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
-	r.Get("/status",func(w http.ResponseWriter, r *http.Request) {
+	r.Get("/status", func(w http.ResponseWriter, r *http.Request) {
 
 		s := StandardResponse{
-			status: http.StatusOK,
+			status:  http.StatusOK,
 			message: "UP",
 		}
 
-		WriteJson(w,s,http.StatusOK)
+		WriteJson(w, s, http.StatusOK)
 
 	})
 
 	r.Route("/v1", func(r chi.Router) {
+
 		r.Get("/check-user-exist", apiService.CheckUserExist)
-		r.Post("/register", apiService.Register)
-		r.Get("/{id}",apiService.GetUser)
+		r.Get("/{id}", apiService.GetUser)
+		r.Get("/{username}", apiService.GetUserByUsername)
+		r.Put("/update/{id}", apiService.Update)
+
+		r.Route("/auth", func(r chi.Router) {
+			r.Post("/login", apiService.Login)
+			r.Post("/resetPassword", apiService.ResetPassword)
+			r.Post("/register", apiService.Register)
+		})
+
 	})
 
 	http.ListenAndServe(":8082", r)

@@ -26,7 +26,19 @@ func InsernalServalError(w http.ResponseWriter, message string) {
 
 }
 
-func NotFound(w http.ResponseWriter,message string){
+func NotFound(w http.ResponseWriter, message string) {
+
+	response := StandardResponse{
+
+		status:  http.StatusNotFound,
+		message: message,
+	}
+
+	WriteJson(w, &response, http.StatusInternalServerError)
+
+}
+
+func UnAuthorized(w http.ResponseWriter, message string) {
 
 	response := StandardResponse{
 

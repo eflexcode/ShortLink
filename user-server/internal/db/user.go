@@ -44,9 +44,9 @@ func (database *DatabaseRepo) CheckuserExist(ctx context.Context, username strin
 	return result
 }
 
-func (database *DatabaseRepo) GetUser(ctx context.Context, filled,filledName string) (*User, error) {
+func (database *DatabaseRepo) GetUser(ctx context.Context, filled, filledName string) (*User, error) {
 
-	query := fmt.Sprintf("SELECT * FROM USERS WHERE %s = $1",filledName)
+	query := fmt.Sprintf("SELECT * FROM USERS WHERE %s = $1", filledName)
 
 	// query := `SELECT * FROM USERS WHERE id = $1`
 
@@ -60,15 +60,30 @@ func (database *DatabaseRepo) GetUser(ctx context.Context, filled,filledName str
 
 	var user User
 
-	err = row.Scan(&user.Id, &user.Name, &user.Username, &user.CreatedAt, &user.UpdatedAt)
+	err = row.Scan(&user.Id, &user.Name, &user.Username, &user.Password, &user.CreatedAt, &user.UpdatedAt)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return &user,nil
+	return &user, nil
 
 }
 
+func (database *DatabaseRepo) Update(ctx context.Context, displayName, id string) error {
 
+	query := `UPDATE USERS SET name = $1 WHERE id = $2`
 
+	_, err := database.db.ExecContext(ctx, query, displayName, id)
+
+	return err
+}
+
+func (database *DatabaseRepo) UpdatePassword(ctx context.Context, password, id string) error {
+
+	query := `UPDATE USERS SET password = $1 WHERE id = $2`
+
+	_, err := database.db.ExecContext(ctx, query, password, id)
+
+	return err
+}
