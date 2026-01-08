@@ -14,7 +14,7 @@ func BadRequest(w http.ResponseWriter, message string) {
 
 }
 
-func InsernalServalError(w http.ResponseWriter, message string) {
+func InternalServalError(w http.ResponseWriter, message string) {
 
 	response := StandardResponse{
 

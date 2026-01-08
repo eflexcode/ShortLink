@@ -80,7 +80,7 @@ func (api *ApiService) Register(w http.ResponseWriter, r *http.Request) {
 	err := api.db.Insert(ctx, registerUserPayload.DisplayName, registerUserPayload.Username, registerUserPayload.Password)
 
 	if err != nil {
-		InsernalServalError(w, "failed to register user")
+		InternalServalError(w, "failed to register user")
 		return
 	}
 
@@ -108,7 +108,7 @@ func (api *ApiService) GetUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		InsernalServalError(w, "failed to register user")
+		InternalServalError(w, "failed to register user")
 		return
 	}
 
@@ -130,7 +130,7 @@ func (api *ApiService) GetUserByUsername(w http.ResponseWriter, r *http.Request)
 			return
 		}
 
-		InsernalServalError(w, "failed to register user")
+		InternalServalError(w, "failed to register user")
 		return
 	}
 
@@ -152,7 +152,7 @@ func (api *ApiService) Update(w http.ResponseWriter, r *http.Request) {
 	err := api.db.Update(ctx, payload.DisplayName, payload.Id)
 
 	if err != nil {
-		InsernalServalError(w, "Failed to update user detials")
+		InternalServalError(w, "Failed to update user detials")
 		return
 	}
 
