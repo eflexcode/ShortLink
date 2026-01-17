@@ -34,7 +34,7 @@ func NotFound(w http.ResponseWriter, message string) {
 		message: message,
 	}
 
-	WriteJson(w, &response, http.StatusInternalServerError)
+	WriteJson(w, &response, http.StatusNotFound)
 
 }
 
@@ -42,10 +42,10 @@ func UnAuthorized(w http.ResponseWriter, message string) {
 
 	response := StandardResponse{
 
-		status:  http.StatusNotFound,
+		status:  http.StatusUnauthorized,
 		message: message,
 	}
 
-	WriteJson(w, &response, http.StatusInternalServerError)
+	WriteJson(w, &response, http.StatusUnauthorized)
 
 }

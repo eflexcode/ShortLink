@@ -55,8 +55,8 @@ func Init() {
 
 	r.Route("/v1", func(r chi.Router) {
 
-		r.Get("/check-user-exist", apiService.CheckUserExist)
-		r.Get("/{id}", apiService.GetUser)
+		r.Get("/check-user-exist/{username}", apiService.checkUserExist)
+		r.Get("/get-with-id/{id}", apiService.GetUser)
 		r.Get("/{username}", apiService.GetUserByUsername)
 		r.Put("/update/{id}", apiService.Update)
 

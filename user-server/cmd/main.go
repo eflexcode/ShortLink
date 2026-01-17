@@ -42,7 +42,7 @@ func registerWithEureka() {
 				log.Print("Info: Eureka heartbeat success")
 			}
 
-			time.Sleep(time.Second * 5)
+			time.Sleep(time.Second * 10)
 
 		}
 
