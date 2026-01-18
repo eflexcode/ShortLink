@@ -12,7 +12,7 @@ import (
 func main() {
 
 	if err := env.InitEnv(); err != nil {
-		log.Print("failed to load env file continuing with hard coded defalts")
+		log.Print("failed to load env file continuing with hard coded defaults")
 	}
 
 	log.Print("User server started")
@@ -42,7 +42,7 @@ func registerWithEureka() {
 				log.Print("Info: Eureka heartbeat success")
 			}
 
-			time.Sleep(time.Second * 10)
+			time.Sleep(time.Second * 100)
 
 		}
 

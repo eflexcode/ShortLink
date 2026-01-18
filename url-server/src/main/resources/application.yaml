@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: url-server
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+      database: shortlink
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+server:
+  port: 8083

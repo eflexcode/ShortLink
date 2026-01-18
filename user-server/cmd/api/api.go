@@ -31,7 +31,7 @@ func Init() {
 		panic(err)
 	}
 
-	log.Print("User-Server database conncetion established")
+	log.Print("User-Server database connection established")
 
 	databseRepo := db.NewDatabaseRepo(database)
 
@@ -60,11 +60,7 @@ func Init() {
 		r.Get("/{username}", apiService.GetUserByUsername)
 		r.Put("/update/{id}", apiService.Update)
 
-		r.Route("/auth", func(r chi.Router) {
-			r.Post("/login", apiService.Login)
-			r.Post("/resetPassword", apiService.ResetPassword)
-			r.Post("/register", apiService.Register)
-		})
+	
 
 	})
 

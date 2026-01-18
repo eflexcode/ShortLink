@@ -2,25 +2,20 @@ package main
 
 import (
 	"log"
-	"net/http"
+
 	"time"
 
 	"github.com/ArthurHlt/go-eureka-client/eureka"
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
+
 )
 
 func main(){
 	
 	log.Print("Auth server started")
 
-	r := chi.NewRouter()
-	r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
-
 	registerWithEureka()
 
-	http.ListenAndServe(":8083", r)
+
 }
 
 func registerWithEureka() {
