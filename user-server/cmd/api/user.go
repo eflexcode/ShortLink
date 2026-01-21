@@ -101,7 +101,7 @@ func (api *ApiService) GetUser(w http.ResponseWriter, r *http.Request) {
 
 		log.Print(err.Error())
 
-		if err == sql.ErrNoRows {
+		if err == sql.ErrNoRows ||err.Error() == "pq: invalid input syntax for type uuid: \"dddd\"" {
 			NotFound(w, "no user found with id: "+id)
 			return
 		}

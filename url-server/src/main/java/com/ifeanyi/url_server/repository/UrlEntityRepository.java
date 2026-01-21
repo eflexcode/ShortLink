@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface UrlEntityRepository extends MongoRepository<UrlEntity,String> {
     Page<UrlEntity> findByOwnerId(String ownerId, Pageable pageable);
-    Optional<UrlEntity> findByUrl(String urlShort);
+    Optional<UrlEntity> findByUrlShort(String urlShort);
 }

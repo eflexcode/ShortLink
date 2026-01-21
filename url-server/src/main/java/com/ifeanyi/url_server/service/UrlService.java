@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface UrlService {
 
-    UrlResponse createShortLink(UrlPayload urlPayload);
+    UrlResponse createShortLink(UrlPayload urlPayload) throws NotFoundException;
     Page<UrlEntity> getByOwnerId(String id, Pageable pageable);
     UrlEntity getByUrl(String url) throws NotFoundException;
 
