@@ -40,10 +40,10 @@ public class UrlServiceImpl implements UrlService {
                 if (userResponseEntity.getStatusCode().value() != HttpStatus.OK.value()) {
                     throw new NotFoundException("No user found with id: "+urlPayload.getOwnerId());
                 }
+                urlEntity.setOwnerId(userResponseEntity.getBody().getId());
             }catch (RestClientException e){
                 throw new NotFoundException("No user found with id: "+urlPayload.getOwnerId());
             }
-
 
         }
 

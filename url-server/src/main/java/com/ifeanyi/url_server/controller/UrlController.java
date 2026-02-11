@@ -24,6 +24,7 @@ import java.util.List;
 public class UrlController {
 
     private final UrlService urlService;
+    private String basePathToCutUrl = "http://localhost:8083/r/";
 
     @PostMapping("create-short-url")
     public UrlResponse createShortLink(@RequestBody UrlPayload urlPayload) throws NotFoundException {
@@ -35,7 +36,7 @@ public class UrlController {
 
         String buffer = String.valueOf(request.getRequestURL());
 
-        String path = buffer.replaceFirst("http://localhost:8083/r/", "");
+        String path = buffer.replaceFirst(basePathToCutUrl, "");
 
         UrlEntity gottenUrl = urlService.getByUrl(path);
         response.sendRedirect(gottenUrl.getUrlOriginal());

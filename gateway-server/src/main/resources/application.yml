@@ -7,7 +7,12 @@ spring:
         - id: "user-server"
           uri: "http://localhost:8082"
           predicates:
-           - Path=/user/**
+            - Path=/user/**
+
+        - id: "URL-SERVER"
+          uri: "http://localhost:8083"
+          predicates:
+            - Path=/url/**
 server:
   port: 8080
 eureka:
