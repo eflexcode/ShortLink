@@ -4,18 +4,25 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: "user-server"
-          uri: "http://localhost:8082"
-          predicates:
-            - Path=/user/**
+#        - id: "user-server"
+#          uri: "http://localhost:8082"
+#          predicates:
+#            - Path=/user/**
+#
+#        - id: "url-server"
+#          uri: "http://localhost:8083"
+#          predicates:
+#            - Path=/url/**
 
-        - id: "URL-SERVER"
-          uri: "http://localhost:8083"
-          predicates:
-            - Path=/url/**
+    discovery:
+      locator:
+        enable:
+          true
+        lower-case-service-id: true
+
 server:
-  port: 8080
+  port: 8081
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8081/eureka/
+      defaultZone: http://localhost:8080/eureka/

@@ -24,7 +24,7 @@ func main() {
 
 func registerWithEureka() {
 
-	client := eureka.NewClient([]string{env.GetString("EUREKA_ADDR", "http://localhost:8081/eureka")})
+	client := eureka.NewClient([]string{env.GetString("EUREKA_ADDR", "http://localhost:8080/eureka")})
 
 	instance := eureka.NewInstanceInfo(env.GetString("DISCOVERY_ADDR", "localhost:8082"), env.GetString("SERVER_NAME", "user-server"), env.GetString("IP", "127.0.0.1"), env.GetInt("PORT", 8082), uint(env.GetInt("ttl", 30)), false)
 

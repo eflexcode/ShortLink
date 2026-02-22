@@ -9,10 +9,12 @@ spring:
     redis:
        port: 6379
        host: localhost
+       cache:
+         type: redis
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8081/eureka/
+      defaultZone: http://localhost:8080/eureka/
 server:
   port: 8083

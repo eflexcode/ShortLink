@@ -48,7 +48,7 @@ func Init() {
 			status:  http.StatusOK,
 			message: "UP",
 		}
-
+		
 		WriteJson(w, s, http.StatusOK)
 
 	})
@@ -59,8 +59,6 @@ func Init() {
 		r.Get("/get-with-id/{id}", apiService.GetUser)
 		r.Get("/{username}", apiService.GetUserByUsername)
 		r.Put("/update/{id}", apiService.Update)
-
-	
 
 	})
 

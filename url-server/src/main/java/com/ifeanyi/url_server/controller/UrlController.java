@@ -8,6 +8,7 @@ import com.ifeanyi.url_server.service.UrlService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -18,16 +19,18 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @RestController
-@RequestMapping("/")
+@RequestMapping("/url")
 @RequiredArgsConstructor
 public class UrlController {
 
     private final UrlService urlService;
     private String basePathToCutUrl = "http://localhost:8083/r/";
 
-    @PostMapping("create-short-url")
+    @PostMapping("/create-short-url")
     public UrlResponse createShortLink(@RequestBody UrlPayload urlPayload) throws NotFoundException {
+        log.debug("hit");
         return urlService.createShortLink(urlPayload);
     }
 
@@ -48,3 +51,4 @@ public class UrlController {
     }
 
 }
+

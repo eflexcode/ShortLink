@@ -1,8 +1,14 @@
 spring:
   application:
     name: discovery-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+
 server:
-  port: 8081
+  port: 8080
 eureka:
   client:
     fetch-registry: false
