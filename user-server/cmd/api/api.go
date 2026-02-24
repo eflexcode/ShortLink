@@ -49,7 +49,7 @@ func Init() {
 			message: "UP",
 		}
 		
-		WriteJson(w, s, http.StatusOK)
+		WriteJson(w, &s, http.StatusOK)
 
 	})
 

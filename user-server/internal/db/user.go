@@ -36,12 +36,23 @@ func (database *DatabaseRepo) Insert(ctx context.Context, name, username, passwo
 
 func (database *DatabaseRepo) CheckuserExist(ctx context.Context, username string) bool {
 
-	query := `SELECT EXIST(SELECT 1 USERS WHERE username = $1)`
+	// query := `SELECT EXIST(SELECT 1 FROM USERS WHERE username = $1)`
 
-	var result bool
+	var result bool = true
 
-	database.db.QueryRowContext(ctx, query, username).Scan(&result)
+	// database.db.QueryRowContext(ctx, query, username).Scan(&result)
 
+ 	k:= `SELECT COUNT(*) FROM users WHERE username = $1`
+	// q := "SELECT * FROM USERS WHERE username = $1"
+	
+	r,err := database.db.QueryContext(ctx,k,username)
+		
+	if err != nil{
+		result = false
+	}	
+
+	print(r.Next())
+	
 	return result
 }
 

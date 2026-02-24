@@ -21,7 +21,6 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/url")
 @RequiredArgsConstructor
 public class UrlController {
 
@@ -30,11 +29,10 @@ public class UrlController {
 
     @PostMapping("/create-short-url")
     public UrlResponse createShortLink(@RequestBody UrlPayload urlPayload) throws NotFoundException {
-        log.debug("hit");
         return urlService.createShortLink(urlPayload);
     }
 
-    @GetMapping("r/**")
+    @GetMapping("/r/**")
     public void getUrl(HttpServletRequest request, HttpServletResponse response) throws NotFoundException, IOException {
 
         String buffer = String.valueOf(request.getRequestURL());
@@ -45,7 +43,7 @@ public class UrlController {
         response.sendRedirect(gottenUrl.getUrlOriginal());
     }
 
-    @GetMapping("get/{id}")
+    @GetMapping("/user/{id}")
     public List<UrlEntity> getByOwnerId(@PathVariable String id, Pageable pageable) {
         return urlService.getByOwnerId(id, pageable).stream().toList();
     }

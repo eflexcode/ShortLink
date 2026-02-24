@@ -51,7 +51,19 @@ func (api *ApiService) checkUserExist(w http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
 
-	exist := api.db.CheckuserExist(ctx, username)
+	var exist bool = false
+
+	// exist := api.db.CheckuserExist(ctx, username) querry refused to work
+
+	user, err := api.db.GetUser(ctx, username, "username")
+
+	if err != nil{
+		exist = false
+	}
+		
+	if user != nil{
+		exist = true
+	}
 
 	response := CheckUserResponsePayload{
 		Exist: exist,
