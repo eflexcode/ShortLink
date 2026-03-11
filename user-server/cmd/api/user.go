@@ -53,7 +53,7 @@ func (api *ApiService) checkUserExist(w http.ResponseWriter, r *http.Request) {
 
 	var exist bool = false
 
-	// exist := api.db.CheckuserExist(ctx, username) querry refused to work
+	// exist := api.db.CheckuserExist(ctx, username) query refused to work
 
 	user, err := api.db.GetUser(ctx, username, "username")
 

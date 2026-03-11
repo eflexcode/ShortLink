@@ -11,6 +11,10 @@ func init() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
+	
+	apiService :=  apiService{
+		
+	}
 
 	r.Route("/v1", func(r chi.Router) {
 		r.Post("/login", apiService.Login)
@@ -18,5 +22,5 @@ func init() {
 		r.Post("/register", apiService.Register)
 	})
 
-	http.ListenAndServe(":8083", r)
+	http.ListenAndServe(":8084", r)
 }
