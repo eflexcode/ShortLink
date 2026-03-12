@@ -8,6 +8,7 @@ import (
 	"github.com/ArthurHlt/go-eureka-client/eureka"
 	"github.com/cmd/env"
 	"github.com/cmd/internal/db"
+	"github.com/cmd/api"
 )
 
 func main(){
@@ -23,9 +24,15 @@ func main(){
 		MaxIdealTime: env.GetString("MAX_IDEAL_TIME", "15m"),
 	}
 
-	db.DatabaseConnect(config)
+ 	db,err := db.DatabaseConnect(config)
+  
+  	if	err != nil {
+ 		panic("Failed to connect to db")
+   }
 	
 	registerWithEureka()
+	
+	api.InitApi(db)
 
 }
 
