@@ -16,6 +16,10 @@ public class RoutingConfig {
                         .path("/url/**")
                         .filters(f -> f.stripPrefix(1))
                         .uri("http://localhost:8083"))
+                .route("auth", r -> r
+                        .path("/auth/**")
+                        .filters(f -> f.stripPrefix(1))
+                        .uri("http://localhost:8084"))
                 .route("user", r -> r
                         .path("/user/**")
                         .filters(f -> f.stripPrefix(1))

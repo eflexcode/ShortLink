@@ -65,6 +65,10 @@ func (api *apiService) Login(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func (api *apiService) Auth(w http.ResponseWriter, r *http.Request) {
+	
+}
+
 func (api *apiService) ResetPassword(w http.ResponseWriter, r *http.Request) {
 
 	
