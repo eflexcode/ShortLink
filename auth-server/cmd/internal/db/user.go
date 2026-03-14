@@ -29,7 +29,7 @@ type Database struct{
 
 func(database Database) GetUser(username string,context context.Context) *User{
 	
-	query := `SELECT * FROM USER WHERE USERNAME = $1`
+	query := `SELECT * FROM USERS WHERE USERNAME = $1`
 	
 	row,err :=	database.Postgres.QueryContext(context,username,query)
 
@@ -43,6 +43,15 @@ func(database Database) GetUser(username string,context context.Context) *User{
 	row.Scan(&user.Id,&user.Name,&user.Username,&user.Password,&user.CreatedAt,&user.UpdatedAt)
 	
 	return &user
+}
+
+func (database Database) ResetPassword(username,password string,context context.Context) error{
+	
+	query := `UPDATE users SET password = $1 WHERE username $2`
+	
+	_,err := database.Postgres.ExecContext(context,query,password,username)
+	
+	return err
 }
 
 func(database Database) Register(regUser RegUser,context context.Context) error{
@@ -61,3 +70,4 @@ func(database Database) Register(regUser RegUser,context context.Context) error{
 	
 	return err
 }
+

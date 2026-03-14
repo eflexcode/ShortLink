@@ -30,7 +30,7 @@ func initTestDb() ApiService {
 		panic(err)
 	}
 
-	// log.Print("User-Server  test database conncetion established")
+	// log.Print("User-Server test database connection established")
 
 	databseRepo := db.NewDatabaseRepo(database)
 

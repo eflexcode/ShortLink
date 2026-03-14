@@ -24,6 +24,12 @@ type RegisterUserPayload struct {
 	Password    string `json:"password"`
 }
 
+type ResetPassword  struct{
+	Username string `json:"username"`
+	OldPassword string `json:"old_password"`
+	NewPassword string `json:"new_password"`
+}
+
 var userServerBaseUrl string = "http://localhost:8082"
 var jwtKey = "I want to share how to set up JWT authentication in GO. It’s easy to implement, but before we dive into implementation, let’s first understand what JWT authentication is and why we need to implement it in our code."
 
@@ -65,13 +71,44 @@ func (api *apiService) Login(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (api *apiService) Auth(w http.ResponseWriter, r *http.Request) {
-	
-}
-
 func (api *apiService) ResetPassword(w http.ResponseWriter, r *http.Request) {
 
+	var resetPassword ResetPassword
 	
+	if err := ReadJson(r,w,&resetPassword); err != nil{
+		BadRequestHttpError(w)
+		return
+	}
+	
+	user :=	api.database.GetUser(resetPassword.Username,r.Context())
+	
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password),[]byte(resetPassword.Username))
+	
+	if err != nil{
+		UnauthorizedHttpError(w, "Unauthorized")
+		return
+	}
+	
+	newPasswordHashed,err := bcrypt.GenerateFromPassword([]byte(resetPassword.NewPassword),bcrypt.DefaultCost)
+
+	if err !=nil{
+		UnauthorizedHttpError(w, "Error hashing password")
+		return
+	}
+	
+	err = api.database.ResetPassword(user.Username,string(newPasswordHashed),r.Context())
+	
+	if err != nil{
+		InternalServerErrorHttpError(w)
+		return
+	}
+	
+	s := StandardResponse{
+		message: "password changed successfully",
+		status: http.StatusOK,
+	}
+	
+	WriteJson(w,s,http.StatusOK)
 	
 }
 

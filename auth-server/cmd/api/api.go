@@ -25,7 +25,6 @@ func InitApi(s *sql.DB) {
 
 	r.Route("/v1", func(r chi.Router) {
 		r.Post("/login", apiService.Login)
-		r.Post("/auth", apiService.Auth)
 		r.Post("/resetPassword", apiService.ResetPassword)
 		r.Post("/register", apiService.Register)
 	})
