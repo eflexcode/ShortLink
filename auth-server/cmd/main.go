@@ -40,7 +40,7 @@ func registerWithEureka() {
 
 	client := eureka.NewClient([]string{"http://localhost:8081/eureka"})
 
-	instance := eureka.NewInstanceInfo("localhost:8083", "auth-server", "127.0.0.1", 8083, 30, false)
+	instance := eureka.NewInstanceInfo("localhost:8084", "auth-server", "127.0.0.1", 8084, 30, false)
 
 	client.RegisterInstance("auth-server", instance)
 
@@ -56,7 +56,7 @@ func registerWithEureka() {
 				log.Print("Info: Eureka heartbeat success")
 			}
 
-			time.Sleep(time.Second * 5)
+			time.Sleep(time.Second * 100)
 
 		}
 

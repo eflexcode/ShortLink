@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,7 +23,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.function.Function;
 
-@Configuration
+@Component
 @EnableWebSecurity
 //@RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
@@ -65,3 +66,4 @@ public class SecurityFilter extends OncePerRequestFilter {
     }
 
 }
+

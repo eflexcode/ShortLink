@@ -31,3 +31,4 @@ func InitApi(s *sql.DB) {
 
 	http.ListenAndServe(":8084", r)
 }
+
