@@ -21,7 +21,7 @@ public class User implements UserDetails {
 
     @JsonProperty("id")
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     @JsonProperty("name")

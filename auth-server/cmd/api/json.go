@@ -2,8 +2,8 @@ package api
 
 import (
 	"encoding/json"
-	"net/http"
 
+	"net/http"
 )
 
 var maxJsonSize = 1024 * 1024
@@ -18,7 +18,10 @@ func ReadJson(r *http.Request, w http.ResponseWriter, data any) error {
 	r.Body = http.MaxBytesReader(w, r.Body, int64(maxJsonSize))
 	decoder := json.NewDecoder(r.Body)
 	decoder.DisallowUnknownFields()
-
+	
+	// io.ReadAll(data)
+	
+	// println(string(data))
 	return decoder.Decode(data)
 
 }
