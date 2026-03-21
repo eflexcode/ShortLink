@@ -1,7 +1,6 @@
 package api
 
 import (
-
 	"log"
 	"net/http"
 	"time"
@@ -33,10 +32,10 @@ type ResetPassword struct {
 }
 
 var userServerBaseUrl string = "http://localhost:8082"
-var jwtKey = "I want to share how to set up JWT authentication in GO. It’s easy to implement, but before we dive into implementation, let’s first understand what JWT authentication is and why we need to implement it in our code."
+var jwtKey = "IwanttosharehowtosetupJWTauthenticationinGOItseasytoimplementbutbeforewediveintoimplementationletsfirstunderstandwhatJWTauthenticationisandwhyweneedtoimplementitinourcode"
 
 func (api *apiService) Login(w http.ResponseWriter, r *http.Request) {
-	
+
 	var payload LoginPayload
 
 	if err := ReadJson(r, w, &payload); err != nil {
@@ -48,7 +47,7 @@ func (api *apiService) Login(w http.ResponseWriter, r *http.Request) {
 	// resp,err := http.Get(userServerBaseUrl+"/v1/"+payload.username)
 
 	user := api.database.GetUser(payload.Username, r.Context())
-	
+
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(payload.Password))
 
 	if err != nil {
@@ -58,8 +57,9 @@ func (api *apiService) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	claims := jwt.MapClaims{
+		"sub":      user.Username,
 		"username": user.Username,
-		"exp":      time.Now().Add(time.Hour * 24),
+		"exp":      time.Now().Add(time.Hour * 24).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -56,14 +57,15 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity httpSecurity) throws Exception{
 
-    httpSecurity
-                .csrf( c -> c.disable())
-                .authorizeExchange(r -> r.pathMatchers("/auth/**")
-                        .permitAll()
-                        .anyExchange()
-                        .authenticated());
+      httpSecurity
+        .csrf( c -> c.disable())
+        .authorizeExchange(r -> r.pathMatchers("/auth/**")
+                .permitAll()
+                .anyExchange()
+                .authenticated())
+              .addFilterAt(filter, SecurityWebFiltersOrder.AUTHENTICATION);
 
-        return httpSecurity.build();
+      return httpSecurity.build();
     }
 
 }

@@ -104,3 +104,4 @@ func (database *DatabaseRepo) UpdatePassword(ctx context.Context, password, id s
 
 	return err
 }
+
