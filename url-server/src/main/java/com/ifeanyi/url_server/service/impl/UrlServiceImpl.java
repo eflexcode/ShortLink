@@ -10,6 +10,7 @@ import com.ifeanyi.url_server.repository.UrlEntityRepository;
 import com.ifeanyi.url_server.service.UrlService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
@@ -59,11 +60,13 @@ public class UrlServiceImpl implements UrlService {
     }
 
     @Override
+    @Cacheable(value = "UrlEntity", key = "#ownerId")
     public Page<UrlEntity> getByOwnerId(String id, Pageable pageable) {
         return urlEntityRepository.findByOwnerId(id, pageable);
     }
 
     @Override
+    @Cacheable(value = "UrlEntity", key = "#urlShort")
     public UrlEntity getByUrl(String url) throws NotFoundException {
 
         UrlEntity urlEntity = urlEntityRepository.findByUrlShort(url).orElseThrow(() -> new NotFoundException("no url found"));
