@@ -4,6 +4,7 @@ A microservice architecture built with java spring boot and golang chi framework
 2.  Gateway server(java): as central entry point in a microservices' system also for auth (jwt) protected path/servers
 3.  Auth server(golang): for login,reset password, and resister new user.
 4.  User server(golang): for user crud activities
+5.  Url server(java): Create short url, get by userid/username, redirect short link to full url
 
 ##  Database
 Postgres: User related db operations in user auth and gateway servers.\
